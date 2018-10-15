@@ -20,6 +20,19 @@ namespace CrossSolar.Tests.Controller
         private readonly Mock<IPanelRepository> _panelRepositoryMock = new Mock<IPanelRepository>();
 
         [Fact]
+        public async Task Get_FetchAllPanels()
+        {
+
+            var panels = await _panelController.GetPanelsAsync();
+
+            Assert.NotNull(panels);
+
+            var foundResult = panels as OkObjectResult;
+            Assert.NotNull(foundResult);
+            Assert.Equal(200, foundResult.StatusCode);
+        }
+
+        [Fact]
         public async Task Register_ShouldInsertPanel()
         {
             var panel = new PanelModel

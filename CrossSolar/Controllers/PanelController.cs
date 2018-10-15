@@ -3,6 +3,7 @@ using CrossSolar.Domain;
 using CrossSolar.Models;
 using CrossSolar.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace CrossSolar.Controllers
 {
@@ -14,6 +15,15 @@ namespace CrossSolar.Controllers
         public PanelController(IPanelRepository panelRepository)
         {
             _panelRepository = panelRepository;
+        }
+
+        // GET api/panel
+        [HttpGet]
+        public async Task<IActionResult> GetPanelsAsync()
+        {
+            var panels = _panelRepository.Query();
+
+            return Ok(panels);
         }
 
         // POST api/panel
@@ -34,5 +44,7 @@ namespace CrossSolar.Controllers
 
             return Created($"panel/{panel.Id}", panel);
         }
+
+
     }
 }
